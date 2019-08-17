@@ -11,15 +11,21 @@ target 'RepoStars' do
 	pod 'Moya/RxSwift', '~> 13.0'
 
 	
-	
+	# Tests
+	def test_pods
+		pod 'Quick'
+		pod 'Nimble'
+		pod 'RxTest'
+	end
+
   target 'RepoStarsTests' do
     inherit! :search_paths
-    # Pods for testing
+    test_pods
   end
 
   target 'RepoStarsUITests' do
     inherit! :search_paths
-    # Pods for testing
+    test_pods
   end
 
 end
