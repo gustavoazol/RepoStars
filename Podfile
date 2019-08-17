@@ -6,10 +6,12 @@ target 'RepoStars' do
   use_frameworks!
 
   # Pods for RepoStars
-	pod 'RxSwift', '~> 5.0'
-	pod 'RxCocoa', '~> 5.0'
-	pod 'Moya', '~> 13.0'
+	pod 'RxSwift'
+	pod 'RxCocoa'
+	pod 'Moya/RxSwift', '~> 13.0'
 
+	
+	
   target 'RepoStarsTests' do
     inherit! :search_paths
     # Pods for testing
