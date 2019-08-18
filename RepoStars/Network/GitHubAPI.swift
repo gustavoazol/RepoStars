@@ -25,11 +25,19 @@ extension GitHubAPI: TargetType {
 	}
 	
 	var method: Method {
-		return .get
+		switch self {
+		case .searchRepositories:
+			return .get
+		}
 	}
 	
 	var sampleData: Data {
-		return Data()
+		switch self {
+		case .searchRepositories:
+			let stubJson = Bundle.main.url(forResource: "RepoStub", withExtension: "json")!
+			let data = try! Data(contentsOf: stubJson)
+			return data
+		}
 	}
 	
 	var task: Task {
