@@ -33,6 +33,7 @@ class ModelTests: QuickSpec {
 					}
 					catch {
 						print(error.localizedDescription)
+						fail("could not decode json data")
 					}
 				}
 			}

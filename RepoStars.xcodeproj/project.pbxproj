@@ -20,6 +20,7 @@
 		ECB8A65A23065CD700E97724 /* GitHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB8A65923065CD700E97724 /* GitHubAPI.swift */; };
 		ECF757B02308D3A200A10AA9 /* RepoStub.json in Resources */ = {isa = PBXBuildFile; fileRef = ECF757AF2308D3A200A10AA9 /* RepoStub.json */; };
 		ECF757B62308DC1300A10AA9 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF757B52308DC1300A10AA9 /* ModelTests.swift */; };
+		ECF757B82308EB8B00A10AA9 /* GitHubServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF757B72308EB8B00A10AA9 /* GitHubServicesTests.swift */; };
 		EF0F3F240FC14AD8C805801C /* Pods_RepoStarsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944718208CD006E4CC3639ED /* Pods_RepoStarsUITests.framework */; };
 		F7296D0A0C6CBA62906DE896 /* Pods_RepoStars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58AD3AE9FF022EBEE7C0FF98 /* Pods_RepoStars.framework */; };
 /* End PBXBuildFile section */
@@ -68,6 +69,7 @@
 		ECB8A65923065CD700E97724 /* GitHubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPI.swift; sourceTree = "<group>"; };
 		ECF757AF2308D3A200A10AA9 /* RepoStub.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RepoStub.json; sourceTree = "<group>"; };
 		ECF757B52308DC1300A10AA9 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		ECF757B72308EB8B00A10AA9 /* GitHubServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubServicesTests.swift; sourceTree = "<group>"; };
 		F002365ED3E3A11D611D1371 /* Pods-RepoStarsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RepoStarsUITests.release.xcconfig"; path = "Target Support Files/Pods-RepoStarsUITests/Pods-RepoStarsUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,6 +173,7 @@
 		ECB8A63E23064F4900E97724 /* RepoStarsTests */ = {
 			isa = PBXGroup;
 			children = (
+				ECF757B72308EB8B00A10AA9 /* GitHubServicesTests.swift */,
 				ECF757B52308DC1300A10AA9 /* ModelTests.swift */,
 				ECB8A64123064F4900E97724 /* Info.plist */,
 			);
@@ -476,6 +479,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECF757B82308EB8B00A10AA9 /* GitHubServicesTests.swift in Sources */,
 				ECF757B62308DC1300A10AA9 /* ModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
