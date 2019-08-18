@@ -12,8 +12,6 @@
 		EC811316230665C800C208A7 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC811315230665C800C208A7 /* Repository.swift */; };
 		EC8113182306677900C208A7 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8113172306677900C208A7 /* Author.swift */; };
 		ECB8A62B23064F4800E97724 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB8A62A23064F4700E97724 /* AppDelegate.swift */; };
-		ECB8A62D23064F4800E97724 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB8A62C23064F4800E97724 /* ViewController.swift */; };
-		ECB8A63023064F4800E97724 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECB8A62E23064F4800E97724 /* Main.storyboard */; };
 		ECB8A63223064F4900E97724 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECB8A63123064F4900E97724 /* Assets.xcassets */; };
 		ECB8A63523064F4900E97724 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECB8A63323064F4900E97724 /* LaunchScreen.storyboard */; };
 		ECB8A64B23064F4900E97724 /* RepoStarsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB8A64A23064F4900E97724 /* RepoStarsUITests.swift */; };
@@ -21,6 +19,7 @@
 		ECF757B02308D3A200A10AA9 /* RepoStub.json in Resources */ = {isa = PBXBuildFile; fileRef = ECF757AF2308D3A200A10AA9 /* RepoStub.json */; };
 		ECF757B62308DC1300A10AA9 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF757B52308DC1300A10AA9 /* ModelTests.swift */; };
 		ECF757B82308EB8B00A10AA9 /* GitHubServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF757B72308EB8B00A10AA9 /* GitHubServicesTests.swift */; };
+		ECF757BD23098A3D00A10AA9 /* RepoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF757BC23098A3D00A10AA9 /* RepoListViewController.swift */; };
 		EF0F3F240FC14AD8C805801C /* Pods_RepoStarsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944718208CD006E4CC3639ED /* Pods_RepoStarsUITests.framework */; };
 		F7296D0A0C6CBA62906DE896 /* Pods_RepoStars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58AD3AE9FF022EBEE7C0FF98 /* Pods_RepoStars.framework */; };
 /* End PBXBuildFile section */
@@ -56,8 +55,6 @@
 		EC8113172306677900C208A7 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
 		ECB8A62723064F4700E97724 /* RepoStars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RepoStars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECB8A62A23064F4700E97724 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		ECB8A62C23064F4800E97724 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		ECB8A62F23064F4800E97724 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ECB8A63123064F4900E97724 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ECB8A63423064F4900E97724 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ECB8A63623064F4900E97724 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,6 +67,7 @@
 		ECF757AF2308D3A200A10AA9 /* RepoStub.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RepoStub.json; sourceTree = "<group>"; };
 		ECF757B52308DC1300A10AA9 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		ECF757B72308EB8B00A10AA9 /* GitHubServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubServicesTests.swift; sourceTree = "<group>"; };
+		ECF757BC23098A3D00A10AA9 /* RepoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListViewController.swift; sourceTree = "<group>"; };
 		F002365ED3E3A11D611D1371 /* Pods-RepoStarsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RepoStarsUITests.release.xcconfig"; path = "Target Support Files/Pods-RepoStarsUITests/Pods-RepoStarsUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,14 +156,11 @@
 		ECB8A62923064F4700E97724 /* RepoStars */ = {
 			isa = PBXGroup;
 			children = (
+				ECB8A62A23064F4700E97724 /* AppDelegate.swift */,
 				ECB8A65823065CBF00E97724 /* Network */,
 				EC811314230665B400C208A7 /* Model */,
-				ECB8A62A23064F4700E97724 /* AppDelegate.swift */,
-				ECB8A62C23064F4800E97724 /* ViewController.swift */,
-				ECB8A62E23064F4800E97724 /* Main.storyboard */,
-				ECB8A63123064F4900E97724 /* Assets.xcassets */,
-				ECB8A63323064F4900E97724 /* LaunchScreen.storyboard */,
-				ECB8A63623064F4900E97724 /* Info.plist */,
+				ECF757BA2308F87C00A10AA9 /* AppFlows */,
+				ECF757B92308F84F00A10AA9 /* SupportFiles */,
 			);
 			path = RepoStars;
 			sourceTree = "<group>";
@@ -205,6 +200,32 @@
 				ECF757AF2308D3A200A10AA9 /* RepoStub.json */,
 			);
 			name = Stubs;
+			sourceTree = "<group>";
+		};
+		ECF757B92308F84F00A10AA9 /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				ECB8A63123064F4900E97724 /* Assets.xcassets */,
+				ECB8A63323064F4900E97724 /* LaunchScreen.storyboard */,
+				ECB8A63623064F4900E97724 /* Info.plist */,
+			);
+			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		ECF757BA2308F87C00A10AA9 /* AppFlows */ = {
+			isa = PBXGroup;
+			children = (
+				ECF757BB23098A1800A10AA9 /* RepoList */,
+			);
+			path = AppFlows;
+			sourceTree = "<group>";
+		};
+		ECF757BB23098A1800A10AA9 /* RepoList */ = {
+			isa = PBXGroup;
+			children = (
+				ECF757BC23098A3D00A10AA9 /* RepoListViewController.swift */,
+			);
+			name = RepoList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,7 +342,6 @@
 				ECB8A63523064F4900E97724 /* LaunchScreen.storyboard in Resources */,
 				ECF757B02308D3A200A10AA9 /* RepoStub.json in Resources */,
 				ECB8A63223064F4900E97724 /* Assets.xcassets in Resources */,
-				ECB8A63023064F4800E97724 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,10 +487,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC8113182306677900C208A7 /* Author.swift in Sources */,
-				ECB8A62D23064F4800E97724 /* ViewController.swift in Sources */,
 				ECB8A65A23065CD700E97724 /* GitHubAPI.swift in Sources */,
 				EC811316230665C800C208A7 /* Repository.swift in Sources */,
 				EC8113132306607C00C208A7 /* GitHubServices.swift in Sources */,
+				ECF757BD23098A3D00A10AA9 /* RepoListViewController.swift in Sources */,
 				ECB8A62B23064F4800E97724 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,14 +528,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		ECB8A62E23064F4800E97724 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				ECB8A62F23064F4800E97724 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		ECB8A63323064F4900E97724 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -650,7 +662,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SZG7J3P766;
-				INFOPLIST_FILE = RepoStars/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/RepoStars/SupportFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -670,7 +682,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SZG7J3P766;
-				INFOPLIST_FILE = RepoStars/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/RepoStars/SupportFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
