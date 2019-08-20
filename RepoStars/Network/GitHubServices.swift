@@ -38,4 +38,8 @@ struct GitHubResponse: Decodable {
 		let container = try decoder.container(keyedBy: ResponseKey.self)
 		self.repositories = try container.decode([Repository].self, forKey: .items)
 	}
+	
+	init(repositories: [Repository]) {
+		self.repositories = repositories
+	}
 }

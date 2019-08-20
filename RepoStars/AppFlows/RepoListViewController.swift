@@ -7,14 +7,21 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class RepoListViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.view.backgroundColor = .blue
-    }
+	let viewModel = RepoListVM()
+	let bag = DisposeBag()
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		self.view.backgroundColor = .blue
+		self.viewModel.input.viewDidLoad.onNext(())
+		
+		self.viewModel.output.initialLoading.drive(onNext: { print($0)}).disposed(by: bag)
+	}
     
 
     /*
