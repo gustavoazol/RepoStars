@@ -26,14 +26,13 @@ class RepoListViewController: UIViewController {
 		let viewModel = RepoListVM(input: inputs)
 		viewModel.loadingList
 			.drive(onNext: { loading in
-			print("Loading list: \(loading)")
+				print("Loading list: \(loading)")
 			})
 			.disposed(by: bag)
 		
 		viewModel.respositories
-			.debug("ReposDebug", trimOutput: true)
 			.drive(onNext: { repos in
-			print("Repos received. Count: \(repos.count)")
+				print("Repos received. Count: \(repos.count)")
 			})
 			.disposed(by: bag)
 	}
