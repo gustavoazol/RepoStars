@@ -9,48 +9,31 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxSwiftExt
 
-
-class RepoListVM: ViewModel {
-	struct RepoListInput {
-		let viewDidLoad: AnyObserver<Void>
+struct RepoListVM {
+	struct Input {
+		let viewLoadTrigger: Observable<Void>
 	}
-
-	struct RepoListOutput {
-		let respositories: Driver<[Repository]>
-		let initialLoading: Driver<Bool>
-	}
-
-	let input: RepoListInput
-	let output: RepoListOutput
-
-	private let services: GitHubServices
 	
-	init(serviceProvider: GitHubServices = GitHubServices()) {
-		self.services = serviceProvider
+	let respositories: Driver<[Repository]>
+	let loadingList: Driver<Bool>
+}
+
+extension RepoListVM {
+	init(input: Input, serviceProvider: GitHubServices = GitHubServices()) {
+		let loading = PublishRelay<Bool>()
+		self.loadingList = loading.asDriver(onErrorJustReturn: false)
 		
-		let didLoadPublisher = PublishSubject<Void>()
-		
-		// INPUT
-		self.input = RepoListInput(
-			viewDidLoad: didLoadPublisher.asObserver()
-		)
-		
-		// OUTPUT
-		let loading = BehaviorRelay(value: false)
-		
-		let reposDriver = didLoadPublisher
+		self.respositories = input.viewLoadTrigger
 			.do(onNext: { loading.accept(true) })
 			.flatMapLatest({
 				serviceProvider.getSwiftRepositories()
+					.catchErrorJustReturn(GitHubResponse(repositories: []))
 			})
 			.map({ $0.repositories })
+			.catchErrorJustReturn([])
 			.do(onNext: { _ in loading.accept(false) })
 			.asDriver(onErrorJustReturn: [])
-		
-		self.output = RepoListOutput(
-			respositories: reposDriver,
-			initialLoading: loading.asDriver()
-		)
 	}
 }

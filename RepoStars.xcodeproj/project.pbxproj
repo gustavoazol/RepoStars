@@ -22,7 +22,6 @@
 		ECF757B82308EB8B00A10AA9 /* GitHubServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF757B72308EB8B00A10AA9 /* GitHubServicesTests.swift */; };
 		ECF757BD23098A3D00A10AA9 /* RepoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF757BC23098A3D00A10AA9 /* RepoListViewController.swift */; };
 		ECF757BF23098C7800A10AA9 /* RepoListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF757BE23098C7800A10AA9 /* RepoListVM.swift */; };
-		ECF757C12309929C00A10AA9 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF757C02309929C00A10AA9 /* ViewModelProtocol.swift */; };
 		ECF757C3230997AC00A10AA9 /* RepoListVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF757C2230997AC00A10AA9 /* RepoListVMTests.swift */; };
 		EF0F3F240FC14AD8C805801C /* Pods_RepoStarsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944718208CD006E4CC3639ED /* Pods_RepoStarsUITests.framework */; };
 		F7296D0A0C6CBA62906DE896 /* Pods_RepoStars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58AD3AE9FF022EBEE7C0FF98 /* Pods_RepoStars.framework */; };
@@ -74,7 +73,6 @@
 		ECF757B72308EB8B00A10AA9 /* GitHubServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubServicesTests.swift; sourceTree = "<group>"; };
 		ECF757BC23098A3D00A10AA9 /* RepoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListViewController.swift; sourceTree = "<group>"; };
 		ECF757BE23098C7800A10AA9 /* RepoListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListVM.swift; sourceTree = "<group>"; };
-		ECF757C02309929C00A10AA9 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		ECF757C2230997AC00A10AA9 /* RepoListVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListVMTests.swift; sourceTree = "<group>"; };
 		F002365ED3E3A11D611D1371 /* Pods-RepoStarsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RepoStarsUITests.release.xcconfig"; path = "Target Support Files/Pods-RepoStarsUITests/Pods-RepoStarsUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -225,7 +223,6 @@
 		ECF757BA2308F87C00A10AA9 /* AppFlows */ = {
 			isa = PBXGroup;
 			children = (
-				ECF757C02309929C00A10AA9 /* ViewModelProtocol.swift */,
 				ECF757BB23098A1800A10AA9 /* RepoList */,
 			);
 			path = AppFlows;
@@ -498,7 +495,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECF757C12309929C00A10AA9 /* ViewModelProtocol.swift in Sources */,
 				ECF757BF23098C7800A10AA9 /* RepoListVM.swift in Sources */,
 				EC8113182306677900C208A7 /* Author.swift in Sources */,
 				ECB8A65A23065CD700E97724 /* GitHubAPI.swift in Sources */,

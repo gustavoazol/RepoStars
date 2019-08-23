@@ -11,27 +11,30 @@ import RxSwift
 import RxCocoa
 
 class RepoListViewController: UIViewController {
-	let viewModel = RepoListVM()
 	let bag = DisposeBag()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		self.view.backgroundColor = .blue
-		self.viewModel.input.viewDidLoad.onNext(())
-		
-		self.viewModel.output.initialLoading.drive(onNext: { print($0)}).disposed(by: bag)
+		self.bindViewModel()
 	}
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+	private func bindViewModel() {
+		let didLoadObservable = Observable<Void>.just(())
+		let inputs = RepoListVM.Input(viewLoadTrigger: didLoadObservable)
+		
+		let viewModel = RepoListVM(input: inputs)
+		viewModel.loadingList
+			.drive(onNext: { loading in
+			print("Loading list: \(loading)")
+			})
+			.disposed(by: bag)
+		
+		viewModel.respositories
+			.debug("ReposDebug", trimOutput: true)
+			.drive(onNext: { repos in
+			print("Repos received. Count: \(repos.count)")
+			})
+			.disposed(by: bag)
+	}
 }

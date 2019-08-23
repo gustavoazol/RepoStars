@@ -17,34 +17,71 @@ class RepoListVMTests: QuickSpec {
 	
 	override func spec() {
 		let stubServices = StubGitServices()
-		var viewModel: RepoListVM!
 		var bag: DisposeBag!
+		var scheduler: TestScheduler!
 		
 		describe("RepoListVM") {
 			beforeEach {
-				viewModel = RepoListVM(serviceProvider: stubServices)
+				scheduler = TestScheduler(initialClock: 0)
 				bag = DisposeBag()
 			}
 			
-			context("When controller loads") {
-				it("should start general list loading, fetch repositories and stop loading") {
-					let scheduler = TestScheduler(initialClock: 0)
-					
+			context("When controller loads, should try to load repostirories") {
+				var viewModel: RepoListVM!
+				
+				beforeEach {
+					let didLoad = scheduler.createColdObservable([ next(0, ()) ]).asObservable()
+					let input = RepoListVM.Input(viewLoadTrigger: didLoad)
+					viewModel = RepoListVM(input: input, serviceProvider: stubServices)
+				}
+				
+				it("should show and hide load during fetch") {
 					let loading = scheduler.createObserver(Bool.self)
-					viewModel.output.initialLoading.drive(loading).disposed(by: bag)
+					viewModel.loadingList
+						.drive(loading)
+						.disposed(by: bag)
 					
-					let repos = scheduler.createObserver([Repository].self)
-					viewModel.output.respositories.drive(repos).disposed(by: bag)
-					
-					scheduler.createColdObservable([ next(250, ()) ])
-						.bind(to: viewModel.input.viewDidLoad)
+					viewModel.respositories
+						.drive()
 						.disposed(by: bag)
 					
 					scheduler.start()
-		
-					expect(loading.events.compactMap{$0.value.element}).to(equal([false, true, false]))
-					expect(repos.events.count).to(equal(1))
-					expect(repos.events.first?.value.element?.count).to(equal(2))
+					expect(loading.events.compactMap{$0.value.element}).to(equal([true, false]))
+				}
+				
+				context("when request finish successfully") {
+					beforeEach {
+						stubServices.completeRequestWithSuccess = true
+					}
+					
+					it("should return the correct number of repositories") {
+						let result = scheduler.createObserver(Int.self)
+						
+						viewModel.respositories
+							.map({$0.count})
+							.drive(result)
+							.disposed(by: bag)
+			
+						scheduler.start()
+						expect(result.events).to(equal([ next(0, 2) ]))
+					}
+				}
+				
+				context("in case of request error") {
+					beforeEach {
+						stubServices.completeRequestWithSuccess = false
+					}
+					
+					it("should return empty repositories list") {
+						let result = scheduler.createObserver(Int.self)
+						viewModel.respositories
+							.map({$0.count})
+							.drive(result)
+							.disposed(by: bag)
+						
+						scheduler.start()
+						expect(result.events).to(equal([ next(0, 0) ]))
+					}
 				}
 			}
 		}
@@ -72,7 +109,7 @@ class StubGitServices: GitHubServices {
 			return Observable.just(response).asSingle()
 		}
 		else {
-			return Observable<GitHubResponse>.error(StubError.requesFailed).asSingle()
+			return Single<GitHubResponse>.error(StubError.requesFailed)
 		}
 	}
 }

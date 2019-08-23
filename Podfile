@@ -8,6 +8,7 @@ target 'RepoStars' do
   # Pods for RepoStars
 	pod 'RxSwift'
 	pod 'RxCocoa'
+	pod 'RxSwiftExt'
 	pod 'Moya/RxSwift', '~> 13.0'
 
 	
