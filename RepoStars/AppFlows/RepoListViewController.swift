@@ -31,6 +31,7 @@ class RepoListViewController: UIViewController {
 			.disposed(by: bag)
 		
 		viewModel.respositories
+			.debug("Repositories", trimOutput: true)
 			.drive(onNext: { repos in
 				print("Repos received. Count: \(repos.count)")
 			})

@@ -31,9 +31,8 @@ extension RepoListVM {
 				serviceProvider.getSwiftRepositories()
 					.catchErrorJustReturn(GitHubResponse(repositories: []))
 			})
-			.debug()
+			.debug("FlatMap", trimOutput: true)
 			.map({ $0.repositories })
-			.catchErrorJustReturn([])
 			.do(onNext: { _ in loading.accept(false) })
 			.asDriver(onErrorJustReturn: [])
 	}
