@@ -14,6 +14,7 @@ import RxSwiftExt
 struct RepoListVM {
 	struct Input {
 		let viewLoadTrigger: Observable<Void>
+		let refreshTrigger: Observable<Void>
 	}
 	
 	let respositories: Driver<[Repository]>
@@ -25,7 +26,7 @@ extension RepoListVM {
 		let loading = PublishRelay<Bool>()
 		self.loadingList = loading.asDriver(onErrorJustReturn: false)
 		
-		self.respositories = input.viewLoadTrigger
+		self.respositories = Observable.merge(input.viewLoadTrigger, input.refreshTrigger) 
 			.do(onNext: { loading.accept(true) })
 			.flatMapLatest({
 				serviceProvider.getSwiftRepositories()

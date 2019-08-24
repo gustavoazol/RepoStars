@@ -21,7 +21,12 @@ class RepoListViewController: UIViewController {
 
 	private func bindViewModel() {
 		let didLoadObservable = Observable<Void>.just(())
-		let inputs = RepoListVM.Input(viewLoadTrigger: didLoadObservable)
+		let refreshObservable = Observable<Void>.empty()
+		
+		let inputs = RepoListVM.Input(
+			viewLoadTrigger: didLoadObservable,
+			refreshTrigger: refreshObservable
+		)
 		
 		let viewModel = RepoListVM(input: inputs)
 		viewModel.loadingList

@@ -1,8 +1,8 @@
 //
-//  RepoListVMTests.swift
+//  RepoListVMRefreshTests.swift
 //  RepoStarsTests
 //
-//  Created by Gustavo Azevedo de Oliveira on 18/08/19.
+//  Created by Gustavo Azevedo de Oliveira on 24/08/19.
 //  Copyright © 2019 Gustavo Azevedo de Oliveira. All rights reserved.
 //
 
@@ -13,10 +13,10 @@ import RxTest
 import RxCocoa
 @testable import RepoStars
 
-class RepoListVMTests: QuickSpec {
+class RepoListVMRefreshTests: QuickSpec {
 	
 	override func spec() {
-		let stubServices = StubDidLoadGitServices()
+		var stubServices: StubRefreshGitServices!
 		var bag: DisposeBag!
 		var scheduler: TestScheduler!
 		var viewModel: RepoListVM!
@@ -25,16 +25,18 @@ class RepoListVMTests: QuickSpec {
 			beforeEach {
 				scheduler = TestScheduler(initialClock: 0)
 				bag = DisposeBag()
+				stubServices = StubRefreshGitServices()
 			}
 			
-			context("When controller loads, should try to fetch repostirories") {
+			context("When pull to refresh, should reload repostirories") {
 				beforeEach {
-					let didLoad = scheduler.createColdObservable([ next(0, ()) ]).asObservable()
-					
+					let didLoad = BehaviorSubject<Void>(value: ())
+					let didRefresh = scheduler.createColdObservable([ next(200, ()) ]).asObservable()
 					let input = RepoListVM.Input(
 						viewLoadTrigger: didLoad,
-						refreshTrigger: Observable<Void>.empty()
+						refreshTrigger: didRefresh
 					)
+					
 					viewModel = RepoListVM(input: input, serviceProvider: stubServices)
 				}
 				
@@ -43,7 +45,7 @@ class RepoListVMTests: QuickSpec {
 						stubServices.completeRequestWithSuccess = true
 					}
 					
-					it("should return the correct number of repositories") {
+					it("should update the repositories with new values") {
 						let loading = scheduler.createObserver(Bool.self)
 						viewModel.loadingList
 							.drive(loading)
@@ -54,10 +56,10 @@ class RepoListVMTests: QuickSpec {
 							.map({$0.count})
 							.drive(result)
 							.disposed(by: bag)
-			
+						
 						scheduler.start()
-						expect(loading.events.compactMap{$0.value.element}).to(equal([true, false]))
-						expect(result.events).to(equal([ next(0, 2) ]))
+						expect(loading.events.compactMap{$0.value.element}).to(equal([true, false, true, false]))
+						expect(result.events).to(equal([ next(0, 2), next(200, 4) ]))
 					}
 				}
 				
@@ -65,7 +67,7 @@ class RepoListVMTests: QuickSpec {
 					beforeEach {
 						stubServices.completeRequestWithSuccess = false
 					}
-					
+
 					it("should return empty repositories list") {
 						let loading = scheduler.createObserver(Bool.self)
 						viewModel.loadingList
@@ -77,10 +79,10 @@ class RepoListVMTests: QuickSpec {
 							.map({$0.count})
 							.drive(result)
 							.disposed(by: bag)
-						
+
 						scheduler.start()
-						expect(loading.events.compactMap{$0.value.element}).to(equal([true, false]))
-						expect(result.events).to(equal([ next(0, 0) ]))
+						expect(loading.events.compactMap{$0.value.element}).to(equal([true, false, true, false]))
+						expect(result.events).to(equal([ next(0, 2), next(200, 0) ]))
 					}
 				}
 			}
