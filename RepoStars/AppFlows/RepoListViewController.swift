@@ -22,7 +22,7 @@ class RepoListViewController: UIViewController {
 	private func bindViewModel() {
 		let didLoadObservable = BehaviorSubject<Void>(value: ())
 		let refreshObservable = Observable<Void>.empty()
-		let loadMore = Observable<Void>.empty()
+		let loadMore = BehaviorSubject<Void>(value: ()).throttle(2.0, scheduler: MainScheduler.instance)
 		
 		let inputs = RepoListVM.Input(
 			viewLoadTrigger: didLoadObservable,
@@ -37,8 +37,14 @@ class RepoListViewController: UIViewController {
 			})
 			.disposed(by: bag)
 		
+		viewModel.loadingMore
+			.drive(onNext: { loading in
+				print("Loading More: \(loading)")
+			})
+			.disposed(by: bag)
+
+		
 		viewModel.repositories
-			.debug("Repositories", trimOutput: true)
 			.drive(onNext: { repos in
 				print("Repos received. Count: \(repos.count)")
 			})

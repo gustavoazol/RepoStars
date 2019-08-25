@@ -20,11 +20,14 @@ struct RepoListVM {
 	
 	let repositories: Driver<[Repository]>
 	let loadingList: Driver<Bool>
+	let loadingMore: Driver<Bool>
 }
 
 extension RepoListVM {
 	init(input: Input, serviceProvider: GitHubServices = GitHubServices()) {
-		let loading = PublishRelay<Bool>()
+		let loadingList = BehaviorSubject<Bool>(value: false)
+		let loadingMore = BehaviorSubject<Bool>(value: false)
+		
 		let currentPage = BehaviorRelay<Int>(value: 0)
 		let canLoadMore = BehaviorSubject<Bool>(value: true)
 		let repositoryList = BehaviorRelay<[Repository]>(value: [])
@@ -49,18 +52,37 @@ extension RepoListVM {
 			.do(onNext: {
 				currentPage.accept(1)
 				canLoadMore.onNext(true)
-				loading.accept(true)
+				loadingList.onNext(true)
 			})
 			.flatMapLatest({ loadPage(page: currentPage.value) })
-			.do(onNext: { _ in loading.accept(false) })
+			.do(onNext: { _ in loadingList.onNext(false) })
+		
 		
 		let loadMore = input.loadMoreTrigger
-			.flatMapLatest({ loadPage(page: currentPage.value + 1) })
+			.withLatestFrom(canLoadMore)
+			.filter({ $0 })
+			.debug("LoadMore Before", trimOutput: true)
+			.do(onNext: { _ in loadingMore.onNext(true) })
+			.flatMapLatest({ _ -> Single<[Repository]> in
+				let nextPage = currentPage.value + 1
+				return loadPage(page: nextPage)
+			})
 			.map({ repositoryList.value + $0 })
-			.do(onNext: { _ in currentPage.accept(currentPage.value + 1)  })
+			.debug("LoadMore After", trimOutput: true)
+			.do(onNext: { _ in
+				loadingMore.onNext(false)
+				currentPage.accept(currentPage.value + 1)
+			})
 		
 		
-		self.loadingList = loading.asDriver(onErrorJustReturn: false)
+		self.loadingList = loadingList
+			.distinctUntilChanged()
+			.asDriver(onErrorJustReturn: false)
+		
+		self.loadingMore = loadingMore
+			.distinctUntilChanged()
+			.asDriver(onErrorJustReturn: false)
+		
 		self.repositories = Observable.merge(reloadCall, loadMore)
 			.do(onNext: { repositoryList.accept($0) })
 			.asDriver(onErrorJustReturn: [])

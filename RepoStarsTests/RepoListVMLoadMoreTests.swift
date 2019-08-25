@@ -45,6 +45,11 @@ class RepoListVMLoadMoreTests: QuickSpec {
 						.drive(loading)
 						.disposed(by: bag)
 					
+					let loadMore = scheduler.createObserver(Bool.self)
+					viewModel.loadingMore
+						.drive(loadMore)
+						.disposed(by: bag)
+					
 					let result = scheduler.createObserver(Int.self)
 					viewModel.repositories
 						.map({$0.count})
@@ -52,7 +57,8 @@ class RepoListVMLoadMoreTests: QuickSpec {
 						.disposed(by: bag)
 					
 					scheduler.start()
-					expect(loading.events.compactMap{$0.value.element}).to(equal([true, false]))
+					expect(loading.events.compactMap{$0.value.element}).to(equal([false, true, false]))
+					expect(loadMore.events).to(equal([ next(0, false), next(200, true), next(200, false) ]))
 					expect(result.events).to(equal([ next(0, 2), next(200, 4) ]))
 				}
 			}

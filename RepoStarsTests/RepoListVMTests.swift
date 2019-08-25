@@ -57,7 +57,7 @@ class RepoListVMTests: QuickSpec {
 							.disposed(by: bag)
 			
 						scheduler.start()
-						expect(loading.events.compactMap{$0.value.element}).to(equal([true, false]))
+						expect(loading.events.compactMap{$0.value.element}).to(equal([false, true, false]))
 						expect(result.events).to(equal([ next(0, 2) ]))
 					}
 				}
@@ -80,7 +80,7 @@ class RepoListVMTests: QuickSpec {
 							.disposed(by: bag)
 						
 						scheduler.start()
-						expect(loading.events.compactMap{$0.value.element}).to(equal([true, false]))
+						expect(loading.events.compactMap{$0.value.element}).to(equal([false, true, false]))
 						expect(result.events).to(equal([ next(0, 0) ]))
 					}
 				}
