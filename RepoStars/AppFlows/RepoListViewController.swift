@@ -9,20 +9,41 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Kingfisher
+
 
 class RepoListViewController: UIViewController {
+	let cellReuseId = "RepositoryCell"
 	let bag = DisposeBag()
+	
+	var customView: RepoListView {
+		return self.view as! RepoListView
+	}
+	
+	override func loadView() {
+		view = RepoListView()
+	}
+	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = .blue
+		self.setupViews()
 		self.bindViewModel()
 	}
 
+	private func setupViews() {
+		self.customView.titleLabel.text = "Top Repositories"
+		self.customView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseId)
+	}
+	
 	private func bindViewModel() {
 		let didLoadObservable = BehaviorSubject<Void>(value: ())
-		let refreshObservable = Observable<Void>.empty()
-		let loadMore = BehaviorSubject<Void>(value: ()).throttle(2.0, scheduler: MainScheduler.instance)
+		
+		let refreshObservable = customView.refreshControl.rx
+			.controlEvent(.valueChanged)
+			.asObservable()
+		
+		let loadMore = Observable<Void>.empty()
 		
 		let inputs = RepoListVM.Input(
 			viewLoadTrigger: didLoadObservable,
@@ -30,12 +51,16 @@ class RepoListViewController: UIViewController {
 			loadMoreTrigger: loadMore
 		)
 		
+		
 		let viewModel = RepoListVM(input: inputs)
 		viewModel.loadingList
-			.drive(onNext: { loading in
-				print("Loading list: \(loading)")
+			.debug("Loding List", trimOutput: true)
+			.drive(onNext: { [weak self] loading in
+				let refreshControl = self?.customView.tableView.refreshControl
+				loading ? refreshControl?.beginRefreshing() : refreshControl?.endRefreshing()
 			})
 			.disposed(by: bag)
+		
 		
 		viewModel.loadingMore
 			.drive(onNext: { loading in
@@ -45,8 +70,20 @@ class RepoListViewController: UIViewController {
 
 		
 		viewModel.repositories
-			.drive(onNext: { repos in
-				print("Repos received. Count: \(repos.count)")
+			.drive(customView.tableView.rx.items(cellIdentifier: cellReuseId)) { _ , repo, cell in
+				cell.textLabel?.text = repo.name
+				cell.detailTextLabel?.text = repo.description
+				
+				let url = URL(string: repo.owner.avatarUrl)
+				cell.imageView?.kf.setImage(with: url)
+			}
+			.disposed(by: bag)
+		
+		
+		viewModel.loadingList
+			.filter({ !$0 })
+			.drive(onNext: { [weak self] _ in
+				self?.customView.refreshControl.endRefreshing()
 			})
 			.disposed(by: bag)
 	}

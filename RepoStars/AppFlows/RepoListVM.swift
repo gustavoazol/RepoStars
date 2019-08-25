@@ -61,14 +61,12 @@ extension RepoListVM {
 		let loadMore = input.loadMoreTrigger
 			.withLatestFrom(canLoadMore)
 			.filter({ $0 })
-			.debug("LoadMore Before", trimOutput: true)
 			.do(onNext: { _ in loadingMore.onNext(true) })
 			.flatMapLatest({ _ -> Single<[Repository]> in
 				let nextPage = currentPage.value + 1
 				return loadPage(page: nextPage)
 			})
 			.map({ repositoryList.value + $0 })
-			.debug("LoadMore After", trimOutput: true)
 			.do(onNext: { _ in
 				loadingMore.onNext(false)
 				currentPage.accept(currentPage.value + 1)

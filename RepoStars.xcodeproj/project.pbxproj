@@ -20,6 +20,7 @@
 		ECF0814B2311D6FF002A2BCB /* RepoListVMRefreshTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF0814A2311D6FF002A2BCB /* RepoListVMRefreshTests.swift */; };
 		ECF0814E2311D763002A2BCB /* StubGitServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF0814D2311D763002A2BCB /* StubGitServices.swift */; };
 		ECF0815023122DA7002A2BCB /* RepoListVMLoadMoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF0814F23122DA7002A2BCB /* RepoListVMLoadMoreTests.swift */; };
+		ECF081522312CFF5002A2BCB /* RepoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF081512312CFF5002A2BCB /* RepoListView.swift */; };
 		ECF757B02308D3A200A10AA9 /* RepoStub.json in Resources */ = {isa = PBXBuildFile; fileRef = ECF757AF2308D3A200A10AA9 /* RepoStub.json */; };
 		ECF757B62308DC1300A10AA9 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF757B52308DC1300A10AA9 /* ModelTests.swift */; };
 		ECF757B82308EB8B00A10AA9 /* GitHubServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF757B72308EB8B00A10AA9 /* GitHubServicesTests.swift */; };
@@ -74,6 +75,7 @@
 		ECF0814A2311D6FF002A2BCB /* RepoListVMRefreshTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListVMRefreshTests.swift; sourceTree = "<group>"; };
 		ECF0814D2311D763002A2BCB /* StubGitServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubGitServices.swift; sourceTree = "<group>"; };
 		ECF0814F23122DA7002A2BCB /* RepoListVMLoadMoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListVMLoadMoreTests.swift; sourceTree = "<group>"; };
+		ECF081512312CFF5002A2BCB /* RepoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListView.swift; sourceTree = "<group>"; };
 		ECF757AF2308D3A200A10AA9 /* RepoStub.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RepoStub.json; sourceTree = "<group>"; };
 		ECF757B52308DC1300A10AA9 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		ECF757B72308EB8B00A10AA9 /* GitHubServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubServicesTests.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			children = (
 				ECF757BC23098A3D00A10AA9 /* RepoListViewController.swift */,
 				ECF757BE23098C7800A10AA9 /* RepoListVM.swift */,
+				ECF081512312CFF5002A2BCB /* RepoListView.swift */,
 			);
 			name = RepoList;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 			files = (
 				ECF757BF23098C7800A10AA9 /* RepoListVM.swift in Sources */,
 				EC8113182306677900C208A7 /* Author.swift in Sources */,
+				ECF081522312CFF5002A2BCB /* RepoListView.swift in Sources */,
 				ECB8A65A23065CD700E97724 /* GitHubAPI.swift in Sources */,
 				EC811316230665C800C208A7 /* Repository.swift in Sources */,
 				EC8113132306607C00C208A7 /* GitHubServices.swift in Sources */,

@@ -10,7 +10,8 @@ target 'RepoStars' do
 	pod 'RxCocoa'
 	pod 'RxSwiftExt'
 	pod 'Moya/RxSwift', '~> 13.0'
-
+	pod 'SteviaLayout'
+	pod 'Kingfisher'
 	
 	# Tests
 	def test_pods
