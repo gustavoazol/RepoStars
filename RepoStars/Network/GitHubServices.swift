@@ -17,11 +17,11 @@ class GitHubServices {
 		self.provider = provider
 	}
 	
-	func getSwiftRepositories() -> Single<GitHubResponse> {
+	func getSwiftRepositories(page: Int = 1) -> Single<GitHubResponse> {
 		let swiftQuery = "language:swift"
 		
 		let response = provider.rx
-			.request(.searchRepositories(query: swiftQuery))
+			.request(.searchRepositories(query: swiftQuery, pageNumber: page))
 			.filterSuccessfulStatusCodes()
 			.asObservable().share()
 		

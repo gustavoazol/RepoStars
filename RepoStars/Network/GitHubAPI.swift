@@ -9,7 +9,7 @@
 import Moya
 
 enum GitHubAPI {
-	case searchRepositories(query: String)
+	case searchRepositories(query: String, pageNumber: Int)
 }
 
 extension GitHubAPI: TargetType {
@@ -42,8 +42,8 @@ extension GitHubAPI: TargetType {
 	
 	var task: Task {
 		switch self {
-		case let .searchRepositories(query):
-			return .requestParameters(parameters: ["q": query], encoding: URLEncoding.queryString)
+		case let .searchRepositories(query, pageNumber):
+			return .requestParameters(parameters: ["q": query, "page": pageNumber], encoding: URLEncoding.queryString)
 		}
 	}
 	

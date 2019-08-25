@@ -33,7 +33,8 @@ class RepoListVMTests: QuickSpec {
 					
 					let input = RepoListVM.Input(
 						viewLoadTrigger: didLoad,
-						refreshTrigger: Observable<Void>.empty()
+						refreshTrigger: Observable<Void>.empty(),
+						loadMoreTrigger: Observable<Void>.empty()
 					)
 					viewModel = RepoListVM(input: input, serviceProvider: stubServices)
 				}
@@ -50,7 +51,7 @@ class RepoListVMTests: QuickSpec {
 							.disposed(by: bag)
 						
 						let result = scheduler.createObserver(Int.self)
-						viewModel.respositories
+						viewModel.repositories
 							.map({$0.count})
 							.drive(result)
 							.disposed(by: bag)
@@ -73,7 +74,7 @@ class RepoListVMTests: QuickSpec {
 							.disposed(by: bag)
 						
 						let result = scheduler.createObserver(Int.self)
-						viewModel.respositories
+						viewModel.repositories
 							.map({$0.count})
 							.drive(result)
 							.disposed(by: bag)

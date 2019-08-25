@@ -23,7 +23,7 @@ class StubDidLoadGitServices: GitHubServices {
 		return repository
 	}
 	
-	override func getSwiftRepositories() -> Single<GitHubResponse> {
+	override func getSwiftRepositories(page: Int) -> Single<GitHubResponse> {
 		if completeRequestWithSuccess {
 			let repo = createStubRepo()
 			let response = GitHubResponse(repositories: [repo, repo])
@@ -49,7 +49,7 @@ class StubRefreshGitServices: GitHubServices {
 		return repository
 	}
 	
-	override func getSwiftRepositories() -> Single<GitHubResponse> {
+	override func getSwiftRepositories(page: Int) -> Single<GitHubResponse> {
 		let completeWithSuccess = refreshCall ? completeRequestWithSuccess : true
 		let returnNumber = refreshCall ? 4 : 2
 		refreshCall = true

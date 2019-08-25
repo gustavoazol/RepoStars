@@ -20,12 +20,14 @@ class RepoListViewController: UIViewController {
 	}
 
 	private func bindViewModel() {
-		let didLoadObservable = Observable<Void>.just(())
+		let didLoadObservable = BehaviorSubject<Void>(value: ())
 		let refreshObservable = Observable<Void>.empty()
+		let loadMore = Observable<Void>.empty()
 		
 		let inputs = RepoListVM.Input(
 			viewLoadTrigger: didLoadObservable,
-			refreshTrigger: refreshObservable
+			refreshTrigger: refreshObservable,
+			loadMoreTrigger: loadMore
 		)
 		
 		let viewModel = RepoListVM(input: inputs)
@@ -35,7 +37,7 @@ class RepoListViewController: UIViewController {
 			})
 			.disposed(by: bag)
 		
-		viewModel.respositories
+		viewModel.repositories
 			.debug("Repositories", trimOutput: true)
 			.drive(onNext: { repos in
 				print("Repos received. Count: \(repos.count)")
