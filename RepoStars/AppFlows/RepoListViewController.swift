@@ -43,7 +43,17 @@ class RepoListViewController: UIViewController {
 			.controlEvent(.valueChanged)
 			.asObservable()
 		
-		let loadMore = Observable<Void>.empty()
+		let loadMore = customView.tableView.rx.contentOffset
+			.map { [unowned self] (offset) -> Bool in
+				let contentHeight = self.customView.tableView.contentSize.height
+				let viewHeight = self.customView.tableView.bounds.height
+				let inLastVisibleBound = offset.y >= (contentHeight - 2*viewHeight)
+				return inLastVisibleBound
+			}
+			.distinctUntilChanged()
+			.filter({ $0 })
+			.map({_ in () })
+		
 		
 		let inputs = RepoListVM.Input(
 			viewLoadTrigger: didLoadObservable,
@@ -54,7 +64,6 @@ class RepoListViewController: UIViewController {
 		
 		let viewModel = RepoListVM(input: inputs)
 		viewModel.loadingList
-			.debug("Loding List", trimOutput: true)
 			.drive(onNext: { [weak self] loading in
 				let refreshControl = self?.customView.tableView.refreshControl
 				loading ? refreshControl?.beginRefreshing() : refreshControl?.endRefreshing()

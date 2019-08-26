@@ -27,7 +27,7 @@ struct Repository: Decodable {
 		let container = try decoder.container(keyedBy: RepositoryKeys.self)
 		
 		self.name = try container.decode(String.self, forKey: .name)
-		self.description = try container.decode(String.self, forKey: .description)
+		self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
 		self.starsCount = try container.decode(Int.self, forKey: .starsCount)
 		self.repositoryUrl = try container.decode(String.self, forKey: .repoUrl)
 		self.owner = try container.decode(Author.self, forKey: .owner)
