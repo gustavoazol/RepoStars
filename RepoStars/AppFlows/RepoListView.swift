@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Stevia
+import SnapKit
 
 class RepoListView: UIView {
 	let titleLabel = UILabel()
@@ -25,7 +25,7 @@ class RepoListView: UIView {
 	}
 	
 	private func commonInit() {
-		self.backgroundColor = .white
+		self.backgroundColor = .purple
 		
 		titleLabel.backgroundColor = .purple
 		titleLabel.textColor = .white
@@ -34,23 +34,24 @@ class RepoListView: UIView {
 		
 		tableView.refreshControl = self.refreshControl
 		tableView.rowHeight = UITableView.automaticDimension
+		tableView.estimatedRowHeight = 100.0
 		
 		// Layout
-		sv(
-			titleLabel,
-			tableView
-		)
-	}
-	
-	override func layoutSubviews() {
-		super.layoutSubviews()
+		self.addSubview(titleLabel)
+		self.addSubview(tableView)
 		
-		layout(
-			safeAreaInsets.top,
-			|titleLabel.height(60)|,
-			10,
-			|-tableView-|,
-			safeAreaInsets.bottom
-		)
+		titleLabel.snp.makeConstraints { (maker) in
+			maker.top.equalTo(safeAreaLayoutGuide.snp.top)
+			maker.left.equalTo(safeAreaLayoutGuide.snp.left)
+			maker.right.equalTo(safeAreaLayoutGuide.snp.right)
+			maker.height.equalTo(50)
+		}
+		
+		tableView.snp.makeConstraints { (maker) in
+			maker.top.equalTo(titleLabel.snp.bottom)
+			maker.left.equalTo(safeAreaLayoutGuide.snp.left)
+			maker.right.equalTo(safeAreaLayoutGuide.snp.right)
+			maker.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).priority(999)
+		}
 	}
 }

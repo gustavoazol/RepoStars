@@ -33,7 +33,7 @@ class RepoListViewController: UIViewController {
 
 	private func setupViews() {
 		self.customView.titleLabel.text = "Top Repositories"
-		self.customView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseId)
+		self.customView.tableView.register(RepoTableViewCell.self, forCellReuseIdentifier: cellReuseId)
 	}
 	
 	private func bindViewModel() {
@@ -70,14 +70,17 @@ class RepoListViewController: UIViewController {
 
 		
 		viewModel.repositories
-			.drive(customView.tableView.rx.items(cellIdentifier: cellReuseId)) { _ , repo, cell in
-				cell.textLabel?.text = repo.name
-				cell.detailTextLabel?.text = repo.description
-				
-				let url = URL(string: repo.owner.avatarUrl)
-				cell.imageView?.kf.setImage(with: url)
-			}
-			.disposed(by: bag)
+			.drive(customView.tableView.rx
+				.items(cellIdentifier: cellReuseId, cellType: RepoTableViewCell.self)) { _ , repo, cell in
+					cell.repoName.text = repo.name
+					cell.repoAuthor.text = repo.owner.username
+					cell.repoDescription.text = repo.description
+					cell.repoRatingText.text = "\(repo.starsCount) stars"
+					
+					let url = URL(string: repo.owner.avatarUrl)
+					cell.repoPhoto.kf.setImage(with: url)
+				}
+				.disposed(by: bag)
 		
 		
 		viewModel.loadingList

@@ -11,6 +11,7 @@
 		EC8113132306607C00C208A7 /* GitHubServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8113122306607C00C208A7 /* GitHubServices.swift */; };
 		EC811316230665C800C208A7 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC811315230665C800C208A7 /* Repository.swift */; };
 		EC8113182306677900C208A7 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8113172306677900C208A7 /* Author.swift */; };
+		EC9738072313307E00FEB608 /* RepoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9738062313307E00FEB608 /* RepoTableViewCell.swift */; };
 		ECB8A62B23064F4800E97724 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB8A62A23064F4700E97724 /* AppDelegate.swift */; };
 		ECB8A63223064F4900E97724 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECB8A63123064F4900E97724 /* Assets.xcassets */; };
 		ECB8A63523064F4900E97724 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECB8A63323064F4900E97724 /* LaunchScreen.storyboard */; };
@@ -60,6 +61,7 @@
 		EC8113122306607C00C208A7 /* GitHubServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubServices.swift; sourceTree = "<group>"; };
 		EC811315230665C800C208A7 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		EC8113172306677900C208A7 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
+		EC9738062313307E00FEB608 /* RepoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoTableViewCell.swift; sourceTree = "<group>"; };
 		ECB8A62723064F4700E97724 /* RepoStars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RepoStars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECB8A62A23064F4700E97724 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECB8A63123064F4900E97724 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				ECF757BC23098A3D00A10AA9 /* RepoListViewController.swift */,
 				ECF757BE23098C7800A10AA9 /* RepoListVM.swift */,
 				ECF081512312CFF5002A2BCB /* RepoListView.swift */,
+				EC9738062313307E00FEB608 /* RepoTableViewCell.swift */,
 			);
 			name = RepoList;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				ECF081522312CFF5002A2BCB /* RepoListView.swift in Sources */,
 				ECB8A65A23065CD700E97724 /* GitHubAPI.swift in Sources */,
 				EC811316230665C800C208A7 /* Repository.swift in Sources */,
+				EC9738072313307E00FEB608 /* RepoTableViewCell.swift in Sources */,
 				EC8113132306607C00C208A7 /* GitHubServices.swift in Sources */,
 				ECF757BD23098A3D00A10AA9 /* RepoListViewController.swift in Sources */,
 				ECB8A62B23064F4800E97724 /* AppDelegate.swift in Sources */,
