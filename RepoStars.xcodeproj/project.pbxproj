@@ -147,6 +147,25 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		EC973808231616E200FEB608 /* RepoList */ = {
+			isa = PBXGroup;
+			children = (
+				EC9738092316170900FEB608 /* Views */,
+				ECF757BC23098A3D00A10AA9 /* RepoListViewController.swift */,
+				ECF757BE23098C7800A10AA9 /* RepoListVM.swift */,
+			);
+			path = RepoList;
+			sourceTree = "<group>";
+		};
+		EC9738092316170900FEB608 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ECF081512312CFF5002A2BCB /* RepoListView.swift */,
+				EC9738062313307E00FEB608 /* RepoTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		ECB8A61E23064F4700E97724 = {
 			isa = PBXGroup;
 			children = (
@@ -244,20 +263,9 @@
 		ECF757BA2308F87C00A10AA9 /* AppFlows */ = {
 			isa = PBXGroup;
 			children = (
-				ECF757BB23098A1800A10AA9 /* RepoList */,
+				EC973808231616E200FEB608 /* RepoList */,
 			);
 			path = AppFlows;
-			sourceTree = "<group>";
-		};
-		ECF757BB23098A1800A10AA9 /* RepoList */ = {
-			isa = PBXGroup;
-			children = (
-				ECF757BC23098A3D00A10AA9 /* RepoListViewController.swift */,
-				ECF757BE23098C7800A10AA9 /* RepoListVM.swift */,
-				ECF081512312CFF5002A2BCB /* RepoListView.swift */,
-				EC9738062313307E00FEB608 /* RepoTableViewCell.swift */,
-			);
-			name = RepoList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
