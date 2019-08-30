@@ -93,10 +93,7 @@ class RepoListViewController: UIViewController {
 		
 		
 		viewModel.loadingList
-			.filter({ !$0 })
-			.drive(onNext: { [weak self] _ in
-				self?.customView.refreshControl.endRefreshing()
-			})
+			.drive(customView.refreshControl.rx.isRefreshing)
 			.disposed(by: bag)
 	}
 }

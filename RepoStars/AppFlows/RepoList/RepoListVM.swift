@@ -25,7 +25,6 @@ struct RepoListVM {
 
 extension RepoListVM {
 	init(input: Input, serviceProvider: GitHubServices = GitHubServices()) {
-		let loadingList = BehaviorSubject<Bool>(value: false)
 		let loadingMore = BehaviorRelay<Bool>(value: false)
 		
 		let currentPage = BehaviorRelay<Int>(value: 1)
@@ -46,42 +45,43 @@ extension RepoListVM {
 						canLoadMore.onNext(false)
 				})
 				.map({ $0.repositories })
-				.catchErrorJustReturn([])
 		}
 
 
 		// Fetch Calls
-		let reloadCall = Observable.merge(input.viewLoadTrigger, input.refreshTrigger)
+		let reloadTrigger = Observable.merge(input.viewLoadTrigger, input.refreshTrigger)
+		
+		let reloadCall = reloadTrigger
 			.do(onNext: {
 				currentPage.accept(1)
-				loadingList.onNext(true)
 				canLoadMore.onNext(false)
 			})
-			.flatMapLatest({ loadPage(page: currentPage.value) })
-			.do(onNext: { repos in loadingList.onNext(false) })
-		
+			.flatMapLatest({
+				loadPage(page: currentPage.value)
+					.catchErrorJustReturn([])
+			})
+			.share(replay: 1, scope: .whileConnected)
 		
 		let loadMore = input.loadMoreTrigger
-			.debug("LoadMoreTrigger Received", trimOutput: true)
 			.filter({ !loadingMore.value })
 			.withLatestFrom(canLoadMore)
 			.filter({ $0 })
-			.debug("LoadMoreTrigger Passed", trimOutput: true)
 			.do(onNext: { _ in loadingMore.accept(true) })
 			.flatMapLatest({ _ -> Single<[Repository]> in
 				let nextPage = currentPage.value + 1
 				return loadPage(page: nextPage)
 			})
 			.map({ repositoryList.value + $0 })
-			.debug("DidLoadMore", trimOutput: true)
 			.do(onNext: { _ in
 				loadingMore.accept(false)
 				currentPage.accept(currentPage.value + 1)
 			})
 		
 		
-		self.loadingList = loadingList
-			.distinctUntilChanged()
+		self.loadingList = Observable.merge(
+				reloadTrigger.map({ true }),
+				reloadCall.map({ _ in false })
+			)
 			.asDriver(onErrorJustReturn: false)
 		
 		self.loadingMore = loadingMore
